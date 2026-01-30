@@ -24,7 +24,7 @@ std::vector<int> deferredAcceptance(std::vector<std::vector<int>> hospital_prefe
 }
 
 int main() {
-    std::string filePath = "../data/input.in";
+    std::string filePath = "data/input.in";
     std::ifstream infile(filePath);
     
     if(!infile) {
@@ -46,7 +46,7 @@ int main() {
         std::cout << "Hospital " << (i + 1) << " is matched with Student " << (final_matching[i] + 1) << std::endl;
     }
     
-    std::ofstream outfile("../data/output.out");
+    std::ofstream outfile("data/output.out");
     if(outfile.is_open()) {
         for(int i = 0; i < number; i++) {
             outfile << (i + 1) << " " << (final_matching[i] + 1) << std::endl;
