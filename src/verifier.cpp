@@ -58,9 +58,12 @@ bool stable_match(){
     //check if its unstable
     for(int h = 0; h < n; ++h){
         int current_student = hospital_match[h];
-        for(int s = 0; s < n; ++s){
+
+        for(int i = 0; i < n; ++i){
+            int s = hospital_prefs[h][i];
             //what student hospital h prefers over its current match
             if(s == current_student) break; //no more preferred students
+
             int current_h_for_s = student_match[s];
             if(student_rank[s][h] < student_rank[s][current_h_for_s]){
                 cout << "UNSTABLE: Blocking pair (Hospital " << h+1 << ", Student " << s+1 << ")\n";
