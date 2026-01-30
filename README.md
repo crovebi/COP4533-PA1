@@ -6,9 +6,15 @@ g++ src/matcher.cpp -o matcher
 g++ src/verifier.cpp -o verifier
 To build the executable for the matcher and verifier respectively.
 
-To execute the exe, run the commands from the same folder:
+There is also the testing exe: *random_input_generator* which is made by running
+g++ tests/random_input_generator.cpp -o random
+
+The random input generator takes in a command line input for the number of hospitals/students and inputs a random permutation of preferences into *input&period;in*.
+
+To execute the respective exe, run the commands from the same folder:
 matcher.exe
 verifier.exe
+random.exe (number of hospitals/students)
 
 ## I/O information
 The I/O files are stored in the *data* folder. *input&period;in* stores the input for *matcher.exe*.
