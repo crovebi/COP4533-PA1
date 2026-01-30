@@ -1,0 +1,8 @@
+.vscode
+build
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
