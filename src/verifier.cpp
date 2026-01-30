@@ -2,7 +2,9 @@
 #include <fstream>
 #include <vector>
 #include <unordered_set>
+#include <chrono>
 using namespace std;
+using namespace std::chrono;
 
 //number of hospitals/students
 int n;
@@ -117,12 +119,22 @@ int main(){
         hospital_match[h] = s;
         student_match[s] = h;
     }
+
+    // ------------------- timing -------------------- //
+    auto start = high_resolution_clock::now();
     if(!valid_match()){
         return 0;
     }
     if(!stable_match()){
         return 0;
     }
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start).count();
+
+    // ------------------- log timing in csv file -------------------- //
+    ofstream csv("verifier_timing.csv");
+    csv << n << "," << duration << "\n";
+    csv.close();
 
     cout << "VALID STABLE\n";
     return 0;

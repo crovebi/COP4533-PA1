@@ -3,6 +3,8 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
+#include <chrono>
+using namespace std::chrono;
 
 std::vector<std::vector<int>> preferenceInput(std::ifstream& file, int n) {
     std::vector<std::vector<int>> prefs(n);
@@ -80,8 +82,18 @@ int main() {
     std::vector<std::vector<int>> hospital_preference = preferenceInput(infile, number);
     std::vector<std::vector<int>> student_preference = preferenceInput(infile, number);
 
+    // ------------------- timing -------------------- //
+    auto start = high_resolution_clock::now();
+
     std::vector<int> final_matching = deferredAcceptance(hospital_preference, student_preference, number);
-    
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start).count();
+
+    // ------------------- log timing in csv file -------------------- //
+    std::ofstream csv("matcher_timing.csv");
+    csv << number << "," << duration << "\n";
+    csv.close();
+
     std::cout << "\nFinal Matching Results:" << std::endl;
     for(int i = 0; i < number; i++) {
         std::cout << "Hospital " << (i + 1) << " is matched with Student " << (final_matching[i] + 1) << std::endl;
