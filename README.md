@@ -16,6 +16,8 @@ matcher.exe
 verifier.exe
 random.exe (number of hospitals/students)
 
+Every execution of *matcher.exe* and *verifier.exe* add a point of data to the respective csv file in the data folder. The data in the folder at the start corresponds to the graphs in part C.
+
 ## I/O information
 The I/O files are stored in the *data* folder. *input&period;in* stores the input for *matcher.exe*.
 *output&period;out* stores the output for *matcher.exe* and is also what *verifier.exe* attempts to verify.
