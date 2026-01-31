@@ -24,3 +24,6 @@ To edit the parameters for the executables, simply change *input&period;in* to a
 The output can be ran through *verifier.exe* to obtain the new verification.
 
 ## Part C: Graphs and analysis
+[Graphs](https://imgur.com/a/gkHmXeB)
+Both the graph for the matcher and verifier show an exponential curve when observing the data. Both graphs are initially close, but as the number of hospital-student pairs increases, the matcher grows in time faster, eventually reaching roughly double the required time compared to the verifier.
+The observation for the matcher makes sense considering the documented O(n^2) time complexity of the Gale-Shapely algorithm.

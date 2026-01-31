@@ -132,7 +132,7 @@ int main(){
     auto duration = duration_cast<microseconds>(stop - start).count();
 
     // ------------------- log timing in csv file -------------------- //
-    ofstream csv("verifier_timing.csv");
+    ofstream csv("data/verifier_timing.csv", std::ios::app);
     csv << n << "," << duration << "\n";
     csv.close();
 

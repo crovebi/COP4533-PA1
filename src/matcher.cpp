@@ -11,12 +11,52 @@ std::vector<std::vector<int>> preferenceInput(std::ifstream& file, int n) {
     std::string line;
     
     for (int i = 0; i < n; i++) {
-        std::getline(file, line);
+        if(file.eof()) {
+            std::cerr << "ERROR: Not enough input lines."<< std::endl;
+            exit(1);
+        }
+        if(!std::getline(file, line)) {
+            std::cerr << "ERROR: Failed to read line of preferences" << std::endl;
+            exit(1);
+        }
+        for (char c : line) {
+            if(!std::isspace(static_cast<unsigned char>(c)) && !std::isdigit(static_cast<unsigned char>(c))) {
+                std::cerr << "ERROR: Line contains non-integer character." << std::endl;
+                exit(1);
+            }
+        }
         std::istringstream iss(line);
         int val;
-        while (iss >> val) {
-            prefs[i].push_back(val - 1);
+        int count = 0;
+        std::vector<int> currentLine;
+        while(iss >> val) {
+            if(val < 1 || val > n) {
+                std::cerr << "ERROR: Value has invalid range." << std::endl;
+                exit(1);
+            }
+            currentLine.push_back(val - 1);
+            count++;
         }
+        if(count != n) {
+            std::cerr << "ERROR: Line has invalid number of values." << std::endl;
+            exit(1);
+        }
+        std::string remaining;
+        if(iss >> remaining) {
+            std::cerr << "ERROR: Line still contains data" << std::endl;
+            exit(1);
+        }
+        
+        std::vector<bool> seen(n, false);
+        for(int v : currentLine) {
+            if(seen[v]) {
+                std::cerr << "ERROR: Line has duplicate values." << std::endl;
+                exit(1);
+            }
+            seen[v] = true;
+        }
+        
+        prefs[i] = std::move(currentLine);
     }
     return prefs;
 }
@@ -90,7 +130,7 @@ int main() {
     auto duration = duration_cast<microseconds>(stop - start).count();
 
     // ------------------- log timing in csv file -------------------- //
-    std::ofstream csv("matcher_timing.csv");
+    std::ofstream csv("data/matcher_timing.csv", std::ios::app);
     csv << number << "," << duration << "\n";
     csv.close();
 
